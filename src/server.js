@@ -2,6 +2,9 @@ import  express from 'express';
 
 import {config} from 'dotenv';
 import ConnectToDb from './config/db.js';
+import userRouter from './routes/userRoute.js';
+import taskRouter from './routes/taskRoute.js';
+import auth from './middlewares/auth.js';
 config();
 const app=express();
 const port = process.env.PORT;
@@ -12,6 +15,9 @@ app.use(express.json());
 app.get('/',(req,res)=>{
   res.send('this is a home route');
 });
+
+app.use('/users', userRouter)
+app.use('/tasks', auth, taskRouter)
 
 app.listen(port, async()=>{
   try{
