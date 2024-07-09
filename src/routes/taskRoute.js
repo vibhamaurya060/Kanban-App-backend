@@ -7,7 +7,6 @@ const taskRouter=Router();
 
 
 // for schema
-
 /**
  * @swagger
  *  components:
@@ -27,7 +26,7 @@ const taskRouter=Router();
 
 
 
-// for routes
+// for routes get , post, patch, delete
 
 
 /**
