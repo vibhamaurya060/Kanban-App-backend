@@ -4,6 +4,61 @@ import role from '../middlewares/role.js';
 
 const taskRouter=Router();
 
+
+
+// for schema
+
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      Task:
+ *        required:
+ *          - title
+ *        type: object
+ *        properties:
+ *          title:
+ *            type: string
+ *          desc:
+ *            type: string
+ *          status: 
+ *            type: string
+ */
+
+
+
+// for routes
+
+
+/**
+ * @swagger
+ * /tasks:
+ *   get:
+ *     description: This is a get route for all the tasks.
+ *     responses:
+ *       '200':
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#components/schemas/Task"
+ *   post:
+ *     description: This is a post route for the task.
+ * /tasks/{id}:
+ *   patch:
+ *     description: This is a patch route for the task.
+ *   delete:
+ *     description: This is a delete route for the task.
+ *     
+ */
+
+
+
+
+
+
+
 taskRouter.get("/", role(["admin","user"]) ,async(req,res)=>{
     const todos=await taskModel.find();
     res.json({todos: todos});
@@ -28,13 +83,6 @@ taskRouter.post("/admin",role(["admin"]),async(req,res)=>{
     }
 })
 
-// taskRouter.patch("/",async(req,res)=>{
-//     try{
-
-//     } catch(err){
-//         res.status(500).send(err);
-//     }
-// })
 
 taskRouter.patch("/:id", role(["admin"]), async (req, res) => {
     const { id } = req.params;
@@ -54,13 +102,6 @@ taskRouter.patch("/:id", role(["admin"]), async (req, res) => {
 });
 
 
-// taskRouter.delete("/",async(req,res)=>{
-//     try{
-
-//     } catch(err){
-//         res.status(500).send(err);
-//     }
-// })
 
 // Delete a task, accessible only by admin
 taskRouter.delete("/:id", role(["admin"]), async (req, res) => {

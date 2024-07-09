@@ -5,7 +5,9 @@ import ConnectToDb from './config/db.js';
 import userRouter from './routes/userRoute.js';
 import taskRouter from './routes/taskRoute.js';
 import auth from './middlewares/auth.js';
+import swaggerUi  from'swagger-ui-express';
 import cors from 'cors';
+import openapiSpecification from './config/jsDoc.js';
 
 config();
 const app=express();
@@ -14,6 +16,9 @@ const db_uri=process.env.DB_URI
 
 app.use(cors({origin:process.env.FRONTEND_URL, credentials:true}))
 app.use(express.json());
+
+// swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
 app.get('/',(req,res)=>{
   res.send('this is a home route');

@@ -5,6 +5,82 @@ import jwt from 'jsonwebtoken';
 
 const userRouter=Router();
 
+
+// for schema
+
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      UserRegister:
+ *        type: object
+ *        properties:
+ *          username:
+ *            type: string
+ *          email:
+ *            type: string
+ *          password: 
+ *            type: string
+ *          role:
+ *            type: string
+ *      UserLogin:
+ *        type: object
+ *        properties:
+ *          email:
+ *            type: string
+ *          password: 
+ *            type: string
+ *      
+ */
+
+
+// for routes
+
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     description: this is the route for user registeration.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#components/schemas/UserRegister"
+ *     responses:
+ *       '200':
+ *         description: You will get the messsge for registation 
+ *     
+ */
+
+
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     description: this is the route for user login.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#components/schemas/UserLogin"
+ *     responses:
+ *       '200':
+ *         description: You will get the messsge for login. 
+ */
+
+
+/**
+ * @swagger
+ * /logout:
+ *   get:
+ *     description: this is the route for user logout.
+ *     responses:
+ *       '200':
+ *         description: You will get the messsge for logout 
+ *     
+ */
+
+
 userRouter.post('/register', async(req,res)=>{
     const {username, email, password}=req.body;
     try{
